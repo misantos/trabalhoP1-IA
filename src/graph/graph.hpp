@@ -6,6 +6,7 @@
 #include <string>
 #include <climits>
 #include <list>
+#include <vector>
 #include "node-graph.hpp"
 
 /**
@@ -44,20 +45,18 @@ class Graph {
     private:
    
     int qnt_node;  /// inteiro que indica a quantidade de vértices do grafo
-    std::list<NodeGraph> *graph;  /// vetor de listas de vértices
+    
+    std::vector<std::list<NodeGraph>> graph;  /// vetor de listas de vértices
 
     color *colors;  /// vetor de cores, alocado somente quando tem busca em
     /// profundidade ou largura
 
-    int *ancestor;  /// vetor de predecessores, alocado somente quando
-    /// tem busca em profundidade ou largura
+    int *ancestor;  /// vetor de predecessores
 
-    int *dist;  /// vetor que informa a distância do vértice até a origem,
-    /// utilizado apenas na busca em largura
+    int *dist;  /// vetor que informa a distância do vértice até a origem
 
     std::list<int> order;  /// vetor que informa a ordem em que os vértices
-    /// foram acessados, alocado somente quando tem
-    /// busca em profundidade ou largura
+    /// foram acessados, bom saber o caminho que o algoritmo percorreu
 
     /**
      * @brief Constrói um grafo a partir de dados de entrada
@@ -67,16 +66,6 @@ class Graph {
      * @post Grafo alocado e contendo os dados da stream
      */
     void construct(std::istream& in);
-
-    /**
-     * @brief Explora um vértice de cor branca, visitando recursivamente
-     * todos os vértices adjacentes
-     *
-     * @param index Vértice a ser explorado, cor branca
-     * @pre Somente chamado pela buscaEmProfuntidade
-     * @post Vértice index totalmente explorado, cor preto
-     */
-    void BFSVisit(int index);
 
     /**
      * @brief Imprime a lista que contém a ordem de acesso dos vértices
@@ -187,7 +176,17 @@ class Graph {
      * @pre Grafo inicializado com ler
      * @post ordem de visitação vértices impressa na saída padrão
      */
-    void BFS(int begin);
+    void BFS(int begin, int end);
+
+     /**
+     * @brief Explora um vértice de cor branca, visitando recursivamente
+     * todos os vértices adjacentes
+     *
+     * @param index Vértice a ser explorado, cor branca
+     * @pre Somente chamado pela buscaEmProfuntidade
+     * @post Vértice index totalmente explorado, cor preto
+     */
+    void DFSVisit(int index);
 
     /**
      * @brief Visita os vértices a partir de um ponto inicial,
@@ -197,7 +196,7 @@ class Graph {
      * @pre Grafo inicializado com ler
      * @post ordem de visitação vértices impressa na saída padrão
      */
-    void BLS(int begin);
+    void DFS(int begin, int end );
 
     /**
      * @brief Destrutor da classe Grafo

@@ -8,8 +8,8 @@
  */
 NodeGraph::NodeGraph() {
     //debug("Construindo um No, sem parametros\n");
-    this->id = 0;
-    this->peso = 0;
+    //this->v = 0;
+    this->weight = 0;
 }
 
 /**
@@ -20,10 +20,14 @@ NodeGraph::NodeGraph() {
  * @pre Nenhuma
  * @post Nenhuma
  */
-NodeGraph::NodeGraph(int id, int peso) {
+NodeGraph::NodeGraph(char v, int weight) {
     //debug("Construindo um No, com parametros\n");
-    this->id = id;
-    this->peso = peso;
+    this->v = v;
+    this->weight = weight;
+}
+
+int NodeGraph::getIndex() {
+    return v - 'a';
 }
 
 /**
@@ -37,7 +41,7 @@ NodeGraph::NodeGraph(int id, int peso) {
  * @post Nenhuma
  */
 bool NodeGraph::operator<(const NodeGraph& other) {
-    return this->id < other.id;
+    return this->v < other.v;
 }
 
 /**
@@ -51,7 +55,7 @@ bool NodeGraph::operator<(const NodeGraph& other) {
  * @post Nenhuma
  */
 bool NodeGraph::operator==(int other) {
-    return this->id == other;
+    return this->v == other;
 }
 
 /**
@@ -65,11 +69,11 @@ bool NodeGraph::operator==(int other) {
  * @post Nenhuma
  */
 bool NodeGraph::operator == (const NodeGraph &other) {
-    return this->id == other.id;
+    return this->v == other.v;
 }
 
 bool NodeGraph::operator >= (const NodeGraph &other) {
-    return this->id >= other.id;
+    return this->v >= other.v;
 }
 
 /**
@@ -86,7 +90,7 @@ bool NodeGraph::operator >= (const NodeGraph &other) {
 
 std::ostream& operator << (std::ostream &out, const NodeGraph& other) {
     //out << '[' << other.id << ", " << other.peso << ']';
-    out << '[' << other.id << ']';
+    out << '[' << other.v << ']';
     return out;
 }
 

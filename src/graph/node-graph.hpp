@@ -8,9 +8,10 @@
  * @brief 
  */
 class NodeGraph {
-friend class Grafo;
+friend class Graph;
 private:
-	int id, peso;
+	char v; // o valor do vertice ou ordem é representado por um caracter
+	int weight; //
 public:
 	/**
 	 * @brief Construtor da classe NodeGraph
@@ -20,6 +21,8 @@ public:
 	 */
 	NodeGraph();
 
+	int getIndex();
+
 	/**
 	 * @brief Construtor da classe No Grafo
 	 * 
@@ -28,7 +31,7 @@ public:
 	 * @pre Nenhuma
 	 * @post Nenhuma
 	 */
-	NodeGraph(int id, int peso);
+	NodeGraph(char v, int weight);
 
 	/**
 	 * @brief Sobrecarga do operador < necessária para ordenação
