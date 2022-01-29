@@ -4,6 +4,8 @@
 #include <string>
 #include <chrono>
 
+#define SET_TIMER ScopeTimer _timer(__func__, false)
+
 class ScopeTimer {
 private:
     std::string scope_name;

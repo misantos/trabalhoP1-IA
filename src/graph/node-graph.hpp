@@ -21,7 +21,7 @@ public:
 	 */
 	NodeGraph();
 
-	int getIndex();
+	int getIndex() const;
 
 	/**
 	 * @brief Construtor da classe No Grafo

@@ -26,7 +26,7 @@ NodeGraph::NodeGraph(char v, int weight) {
     this->weight = weight;
 }
 
-int NodeGraph::getIndex() {
+int NodeGraph::getIndex() const {
     return v - 'a';
 }
 

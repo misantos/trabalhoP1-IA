@@ -7,9 +7,12 @@ int main(int argc, char *argv[]){
         g.read(argv[1]);
     }
 
-    g.show();
+    //g.show();
+    std::cout << "dfs \n";
+    g.DFS('a', 'e');
 
-    g.DFS('a', 'g');
+    g.BFS('a', 'e');
+    
 
     return 0;
 }

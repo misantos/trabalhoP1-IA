@@ -9,6 +9,8 @@
 #include <vector>
 #include "node-graph.hpp"
 
+#include "../performance-algorithms/scope-timer.hpp"
+
 /**
  * @brief enumera todas as cores possiveis que um vértice
  * pode assumir, criando assim o tipo (cor)
@@ -43,6 +45,8 @@ enum color {
 class Graph {
     //friend class MenuPrincipal;
     private:
+
+    bool find_end;
    
     int qnt_node;  /// inteiro que indica a quantidade de vértices do grafo
     
@@ -166,6 +170,8 @@ class Graph {
      */
     int countEdge();
 
+    void cleanTemp();
+
     //----------------- Algoritmos de um grafo -----------------//
 
     /**
@@ -186,7 +192,7 @@ class Graph {
      * @pre Somente chamado pela buscaEmProfuntidade
      * @post Vértice index totalmente explorado, cor preto
      */
-    void DFSVisit(int index);
+    void DFSVisit(int index, int end);
 
     /**
      * @brief Visita os vértices a partir de um ponto inicial,
