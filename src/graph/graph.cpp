@@ -23,7 +23,7 @@ void Graph::construct(std::istream& file) {
         temp.v = line[11];
         index = line[8] - 'a';
         temp.weight = stoi(line.substr(14, line.size() - 16));
-        if (graph.size() > index){
+        if ((int)graph.size() > index){
             graph[index].push_back(temp);
         }else{
             graph.resize(index + 1);
@@ -42,7 +42,7 @@ void Graph::construct(std::istream& file) {
         index = line[9] - 'a';   
         graph[index].push_back(temp);
         
-        /*if (!isOrientado) {
+        if (!isOrientado) {
             std::swap(index, temp.id);
             grafo[index].insereOrdenado(temp);
         }*/
@@ -93,14 +93,23 @@ int Graph::getDistPath(int begin, int end) {
 }
 
 Graph::Graph()
-    : qnt_node(0), colors(nullptr), ancestor(nullptr), dist(nullptr) {}
+    : qnt_node(0),
+    colors(nullptr),
+    ancestor(nullptr),
+    dist(nullptr) {
+}
+
+
+bool Graph::validIndex(int index){
+    return index > 0 && index < (int)graph.size();
+}
 
 void Graph::read() {
     
 }
 
 void Graph::show() {
-    for (int i = 0; i < graph.size(); i++) {
+    for (int i = 0; i < (int)graph.size(); i++) {
         std::cout << "Vértices adjacentes a " << static_cast<char>(i + 'a') << ": ";
         for(const auto &it : graph[i]){
             std::cout << it << ' ';
@@ -153,11 +162,11 @@ void Graph::DFS(int begin, int end) {
     colors = new color[graph.size()];
     find_end = false;
 
-    for(i = 0; i < graph.size(); i++) {
+    for(i = 0; i < (int)graph.size(); i++) {
         colors[i] = BRANCO;
     }
     std::cout << "entrando no for \n";
-    for(i = begin; i < graph.size(); i++) {
+    for(i = begin; i < (int)graph.size(); i++) {
         if (colors[i] == BRANCO && (!find_end)) {
             std::cout << "anted do dfsvisit \n";
             DFSVisit(i, end);
@@ -176,7 +185,7 @@ void Graph::BFS(int begin, int end) {
     colors = new color[graph.size()];
     std::list<int> q;
 
-    for(i = 0; i < graph.size(); i++) {
+    for(i = 0; i < (int)graph.size(); i++) {
         colors[i] = BRANCO;
     }
     

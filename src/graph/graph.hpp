@@ -9,6 +9,7 @@
 #include <vector>
 #include "node-graph.hpp"
 
+
 #include "../performance-algorithms/scope-timer.hpp"
 
 /**
@@ -43,7 +44,7 @@ enum color {
  * Utiliza a representação Listas de Adjacência
  */
 class Graph {
-    //friend class MenuPrincipal;
+    friend class MainMenu;
     private:
 
     bool find_end;
@@ -135,6 +136,8 @@ class Graph {
      * @post Nenhuma
      */
     Graph();
+
+    bool validIndex(int index);
 
     /**
      * @brief Cria o grafo com as informações contidas no arquivo

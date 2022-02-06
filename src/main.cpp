@@ -1,4 +1,5 @@
 #include "graph/graph.hpp"
+#include "main-menu/main-menu.hpp"
 
 int main(int argc, char *argv[]){
     Graph g;
@@ -6,12 +7,13 @@ int main(int argc, char *argv[]){
         std::cout << "entrando na funcao\n";
         g.read(argv[1]);
     }
-
+    MainMenu m(&g);
+    m.menu();
     //g.show();
-    std::cout << "dfs \n";
-    g.DFS('a', 'e');
+    //std::cout << "dfs \n";
+    //g.DFS('a', 'e');
 
-    g.BFS('a', 'e');
+    //g.BFS('a', 'e');
     
 
     return 0;
