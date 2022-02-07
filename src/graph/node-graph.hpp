@@ -10,7 +10,7 @@
 class NodeGraph {
 friend class Graph;
 private:
-	char v; // o valor do vertice ou ordem é representado por um caracter
+	int v; // o valor do vertice ou ordem é representado por um caracter
 	int weight; //
 public:
 	/**
@@ -31,7 +31,7 @@ public:
 	 * @pre Nenhuma
 	 * @post Nenhuma
 	 */
-	NodeGraph(char v, int weight);
+	NodeGraph(int v, int weight);
 
 	/**
 	 * @brief Sobrecarga do operador < necessária para ordenação

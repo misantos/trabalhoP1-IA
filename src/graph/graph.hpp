@@ -147,7 +147,7 @@ class Graph {
      * @pre filename contem um nome de arquivo valido e grafo desalocado
      * @post Grafo inicializado com os dados
      */
-    void read(std::string filename);
+    void read(const std::string &filename);
 
     /**
      * @brief Cria o grafo com as informações recebidas da entrada padrão

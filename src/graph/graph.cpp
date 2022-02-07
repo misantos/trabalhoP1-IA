@@ -20,7 +20,7 @@ void Graph::construct(std::istream& file) {
     int index;
     
     while (getline(file, line)){
-        temp.v = line[11];
+        temp.v = line[11] - 'a';
         index = line[8] - 'a';
         temp.weight = stoi(line.substr(14, line.size() - 16));
         if ((int)graph.size() > index){
@@ -50,7 +50,8 @@ void Graph::construct(std::istream& file) {
     //}
 }
 
-void Graph::read(std::string filename){
+void Graph::read(const std::string &filename){
+    std::cout << "Nome arquivo " << filename << '\n';
     std::ifstream file;
     file.open(filename);
 
@@ -64,7 +65,9 @@ void Graph::read(std::string filename){
     file.close();
 }
 
-
+void Graph::read() {
+   
+}
 
 void Graph::printOrder() {
     auto it = order.cbegin();
@@ -101,12 +104,9 @@ Graph::Graph()
 
 
 bool Graph::validIndex(int index){
-    return index > 0 && index < (int)graph.size();
+    return index >= 0 && index < (int)graph.size();
 }
 
-void Graph::read() {
-    
-}
 
 void Graph::show() {
     for (int i = 0; i < (int)graph.size(); i++) {
@@ -157,8 +157,8 @@ void Graph::DFSVisit(int index, int end) {
 void Graph::DFS(int begin, int end) {
     SET_TIMER;
     int i;
-    begin -= 'a';
-    end -= 'a';
+    //begin -= 'a';
+    //end -= 'a';
     colors = new color[graph.size()];
     find_end = false;
 
@@ -178,10 +178,11 @@ void Graph::DFS(int begin, int end) {
 }
 
 void Graph::BFS(int begin, int end) {
+    std::cout << "na funcao bfs";
     SET_TIMER;
     int i;
-    begin -= 'a';
-    end -= 'a';
+    //begin -= 'a';
+    //end -= 'a';
     colors = new color[graph.size()];
     std::list<int> q;
 

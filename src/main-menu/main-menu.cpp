@@ -17,7 +17,10 @@ bool MainMenu::addSourceGraph(Graph *g) {
     return false;
 }
 
-void MainMenu::pause() const {
+void MainMenu::pause(const char * optional_message) const {
+    if (optional_message != nullptr) {
+        std::cout << optional_message;
+    }
     std::cout << "\nPrecione qualquer caractere para continuar\n";
     cleanBuffer();
 }
@@ -30,29 +33,82 @@ void MainMenu::cleanScreen() const {
     int temp __attribute__((unused)) = system(CLEAR);
 }
 
+ void MainMenu::showAlgorithms() const{
+     using namespace std;
+     cout    <<"|-------------------------------------------------------|\n"
+            << "|                  Algoritmos de Busca                  |\n"
+            << "|-------------------------------------------------------|\n"
+            << "|                                                       |\n"
+            << "|               1.  Busca em Largura                    |\n"
+            << "|               2.  Busca em Profundidade               |\n"
+            << "|               3.  A*                                  |\n"
+            << "|               4.  Relatório dos algoritmos            |\n"
+            << "|               5.  Voltar                              |\n"
+            << "|-------------------------------------------------------|\n\n\n";
+ }
+
 void MainMenu::runGraphAlgirithm() {
-    if (g->graph.empty()) {
-        std::cerr << "Grafo não inicializado\n";
-        pause();
-        return;
-    }
+    using namespace std;
     int begin, end;
-    char entrada;
-    std::cout << "Busca em profundidade\n";
-    std::cout << "Digite o vértice inicial: ";
-    std::cin >> begin;
-    while (!g->validIndex(begin)) {
-        std::cout << "Sala inicial inválida. Digite novamente: \n";
-        std::cin >> begin;
+    char entrada=0;
+
+    while (true){
+        cleanScreen();
+        showAlgorithms();
+        entrada = getchar();
+        cleanBuffer();
+        
+        switch (entrada){
+        case '1':
+             if (g->graph.empty()) {
+                pause("Grafo não inicializado\n");return;
+            }
+            std::cout << "Digite a sala inicial: ";
+            std::cin >> begin;
+            cout << begin;
+            //begin -= 'a';
+            cout << begin;
+            while (!g->validIndex(begin)) {
+                std::cout << "Sala inicial inválida. Digite novamente: \n";
+                std::cin >> begin;
+            }
+            std::cout << "Digite a sala final: ";
+            std::cin >> end;
+            cout << end;
+            while (!g->validIndex(end)) {
+                std::cout << "Sala final inválida. Digite novamente: \n";
+                std::cin >> end;
+            }
+            g->BFS(begin, end);
+            pause();
+            break;
+        
+        case '2':
+            //g->read...
+            break;
+
+        case '3':
+            
+            pause();
+            break;
+        
+        case '4':
+            cleanScreen();
+            g->show();
+            pause();
+            break;
+
+        case '5':
+            cout << "Fechando Menu\n";
+            return;
+        
+        default:
+            cout << "Opção inválida\n";
+            break;
+        }
     }
-    std::cout << "Digite a sala final: ";
-    std::cin >> end;
-    while (!g->validIndex(end)) {
-        std::cout << "Sala final inválida. Digite novamente: \n";
-        std::cin >> end;
-    }
-    g->DFS(begin, end);
-    pause();
+
+    
 }
 
 void MainMenu::show() const {
@@ -70,12 +126,20 @@ void MainMenu::show() const {
             << "|-------------------------------------------------------|\n\n\n";
 }
 
+std::string MainMenu::readFilePath(){
+    std::string filename;
+    std::cout << "Entre com o nome do arquivo: ";
+    std::cin >> filename;
+    std::cout << filename << '\n';
+    cleanBuffer();
+    return filename;
+}
+
 void MainMenu::menu() {
     using namespace std;
 
-    int begin, end;
     int entrada = 0;
-    while (entrada != MENU_FUNCTIONS){
+    while (true){
         cleanScreen();
         show();
         entrada = getchar();
@@ -83,7 +147,7 @@ void MainMenu::menu() {
         
         switch (entrada){
         case '1':
-            g->read();
+            g->read(readFilePath());
             break;
         
         case '2':

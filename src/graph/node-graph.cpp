@@ -8,7 +8,7 @@
  */
 NodeGraph::NodeGraph() {
     //debug("Construindo um No, sem parametros\n");
-    //this->v = 0;
+    this->v = 0;
     this->weight = 0;
 }
 
@@ -20,14 +20,14 @@ NodeGraph::NodeGraph() {
  * @pre Nenhuma
  * @post Nenhuma
  */
-NodeGraph::NodeGraph(char v, int weight) {
+NodeGraph::NodeGraph(int v, int weight) {
     //debug("Construindo um No, com parametros\n");
     this->v = v;
     this->weight = weight;
 }
 
 int NodeGraph::getIndex() const {
-    return v - 'a';
+    return v;//- 'a';
 }
 
 /**
