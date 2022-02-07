@@ -6,6 +6,7 @@
 #include <iterator>
 #include <string_view>
 #include <queue>
+#include <string>
 
 
 void Graph::construct(std::istream& file) {
@@ -74,9 +75,9 @@ void Graph::printOrder() {
     auto end = order.cend();
     end--;
     for(; it != end; it++){
-        std::cout << static_cast<char>(*it + 'a') << " - ";
+        std::cout << static_cast<char>('S') << *it << " - ";
     }
-    std::cout << static_cast<char>(*it + 'a') << '\n';
+    std::cout << static_cast<char>('S') << *it << '\n';
 }
 
 void Graph::printAncestor() {
@@ -102,6 +103,18 @@ Graph::Graph()
     dist(nullptr) {
 }
 
+int Graph::readIndex() {
+    int ret = -1;
+    std::string input;
+    std::cin >> input;
+    std::cin.ignore(2, '\n');
+    if (tolower(input[0]) == 's') {
+        const char *ptr = input.c_str();
+        ret = std::atoi(ptr + 1);
+    }
+    return ret;
+}
+
 
 bool Graph::validIndex(int index){
     return index >= 0 && index < (int)graph.size();
@@ -110,7 +123,7 @@ bool Graph::validIndex(int index){
 
 void Graph::show() {
     for (int i = 0; i < (int)graph.size(); i++) {
-        std::cout << "Vértices adjacentes a " << static_cast<char>(i + 'a') << ": ";
+        std::cout << "Vértices adjacentes a " << static_cast<char>('S') <<  i << ": ";
         for(const auto &it : graph[i]){
             std::cout << it << ' ';
         }

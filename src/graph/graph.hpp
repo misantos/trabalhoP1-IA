@@ -137,6 +137,8 @@ class Graph {
      */
     Graph();
 
+    static int readIndex();
+
     bool validIndex(int index);
 
     /**

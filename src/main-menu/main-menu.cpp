@@ -49,6 +49,7 @@ void MainMenu::cleanScreen() const {
 
 void MainMenu::runGraphAlgirithm() {
     using namespace std;
+    std::string input;
     int begin, end;
     char entrada=0;
 
@@ -60,31 +61,45 @@ void MainMenu::runGraphAlgirithm() {
         
         switch (entrada){
         case '1':
-             if (g->graph.empty()) {
+            //largura
+            if (g->graph.empty()) {
                 pause("Grafo não inicializado\n");return;
             }
             std::cout << "Digite a sala inicial: ";
-            std::cin >> begin;
-            cout << begin;
-            //begin -= 'a';
-            cout << begin;
+            begin = Graph::readIndex();
             while (!g->validIndex(begin)) {
                 std::cout << "Sala inicial inválida. Digite novamente: \n";
-                std::cin >> begin;
+                begin = Graph::readIndex();
             }
             std::cout << "Digite a sala final: ";
-            std::cin >> end;
-            cout << end;
+            end = Graph::readIndex();
             while (!g->validIndex(end)) {
                 std::cout << "Sala final inválida. Digite novamente: \n";
-                std::cin >> end;
+                end = Graph::readIndex();
             }
             g->BFS(begin, end);
             pause();
             break;
         
         case '2':
-            //g->read...
+            //profundidade
+            if (g->graph.empty()) {
+                pause("Grafo não inicializado\n");return;
+            }
+            std::cout << "Digite a sala inicial: ";
+            begin = Graph::readIndex();
+            while (!g->validIndex(begin)) {
+                std::cout << "Sala inicial inválida. Digite novamente: \n";
+                begin = Graph::readIndex();
+            }
+            std::cout << "Digite a sala final: ";
+            end = Graph::readIndex();
+            while (!g->validIndex(end)) {
+                std::cout << "Sala final inválida. Digite novamente: \n";
+                end = Graph::readIndex();
+            }
+            g->DFS(begin, end);
+            pause();
             break;
 
         case '3':
