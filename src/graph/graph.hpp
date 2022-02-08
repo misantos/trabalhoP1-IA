@@ -7,6 +7,7 @@
 #include <climits>
 #include <list>
 #include <vector>
+#include <fstream>
 #include "node-graph.hpp"
 
 

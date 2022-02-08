@@ -1,0 +1,4 @@
+Relatorio com os resultado de Busca em Largura
+S0 S1 S2 S3 S4 S5 S8 S7 S10 S9 S6 S16 S20 S21 S11 S17 S19 S18 S28 S27 S22 S25 S12 S13 S14 S15 S29 
+Relatorio com os resultado de Busca em Profundidade
+S0 S1 S2 S3 S4 S5 S6 S11 S12 S13 S14 S15 S16 S17 S19 S20 S21 S27 S28 S29 

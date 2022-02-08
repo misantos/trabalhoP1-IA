@@ -1,5 +1,6 @@
 #include "graph.hpp"
 #include "node-graph.hpp"
+#include "../resume-file/singleton-resume-file.hpp"
 
 #include <algorithm>
 #include <iostream>
@@ -21,18 +22,20 @@ void Graph::construct(std::istream& file) {
     int index;
     
     while (getline(file, line)){
-        temp.v = line[11] - 'a';
-        index = line[8] - 'a';
-        temp.weight = stoi(line.substr(14, line.size() - 16));
-        if ((int)graph.size() > index){
+        temp.v = atoi(&line[line.find_last_of('S') + 1]);
+        index = atoi(&line[line.find_first_of('S')] + 1);
+        temp.weight = atoi(&line[line.find_last_of(',')] + 1);
+        auto greater = std::max(index, temp.v);
+        if ((int)graph.size() > greater){
             graph[index].push_back(temp);
         }else{
-            graph.resize(index + 1);
+            graph.resize(greater + 1);
             graph[index].push_back(temp);
         }
         
     }
     
+
 
     /*while (getline(file, line)) {
         temp.v = line[11];
@@ -129,6 +132,14 @@ void Graph::show() {
         }
         std::cout << '\n';
     }
+
+    /*for (int i = 0; i < (int)graph.size(); i++) {
+        std::cout << "Pesos adjacentes a " << static_cast<char>('S') <<  i << ": ";
+        for(const auto &it : graph[i]){
+            std::cout << it.weight << ' ';
+        }
+        std::cout << '\n';
+    }*/
 }
 
 int Graph::countEdge() {
@@ -169,9 +180,8 @@ void Graph::DFSVisit(int index, int end) {
 
 void Graph::DFS(int begin, int end) {
     SET_TIMER;
+    SingletonResumeFile &file = SingletonResumeFile::getInstance();
     int i;
-    //begin -= 'a';
-    //end -= 'a';
     colors = new color[graph.size()];
     find_end = false;
 
@@ -185,14 +195,19 @@ void Graph::DFS(int begin, int end) {
             DFSVisit(i, end);
         }
     }
-
     printOrder();
+    file << "Relatorio com os resultado de Busca em Profundidade\n";
+    for (auto i : order){
+        file << 'S' << i << ' '; 
+    }
+    file << '\n';
+    
     cleanTemp();
 }
 
 void Graph::BFS(int begin, int end) {
-    std::cout << "na funcao bfs";
     SET_TIMER;
+    SingletonResumeFile &file = SingletonResumeFile::getInstance();
     int i;
     //begin -= 'a';
     //end -= 'a';
@@ -226,10 +241,13 @@ void Graph::BFS(int begin, int end) {
         colors[first] = PRETO;
     }
     printOrder();
+    file << "Relatorio com os resultado de Busca em Largura\n";
+    for (auto i : order){
+        file << 'S' << i << ' '; 
+    }
+    file << '\n';
     cleanTemp();
 }
-
-
 
 Graph::~Graph() {
     
