@@ -4,6 +4,8 @@
 #include <string>
 #include <chrono>
 
+#include "../resume-file/singleton-resume-file.hpp"
+
 #define SET_TIMER ScopeTimer _timer(__func__, false)
 
 class ScopeTimer {

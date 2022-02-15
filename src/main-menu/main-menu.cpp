@@ -37,15 +37,14 @@ void MainMenu::cleanScreen() const {
 
  void MainMenu::showAlgorithms() const{
      using namespace std;
-     cout    <<"|-------------------------------------------------------|\n"
+     cout   <<"|-------------------------------------------------------|\n"
             << "|                  Algoritmos de Busca                  |\n"
             << "|-------------------------------------------------------|\n"
             << "|                                                       |\n"
             << "|               1.  Busca em Largura                    |\n"
             << "|               2.  Busca em Profundidade               |\n"
             << "|               3.  A*                                  |\n"
-            << "|               4.  Relatório dos algoritmos            |\n"
-            << "|               5.  Voltar                              |\n"
+            << "|               4.  Voltar                              |\n"
             << "|-------------------------------------------------------|\n\n\n";
  }
 
@@ -67,13 +66,14 @@ void MainMenu::runGraphAlgirithm() {
             if (g->graph.empty()) {
                 pause("Grafo não inicializado\n");return;
             }
-            std::cout << "Digite a sala inicial: ";
+            std::cout << "\nBusca em Largura\n\n";
+            std::cout << "Digite a sala inicial (exemplo: s1): ";
             begin = Graph::readIndex();
             while (!g->validIndex(begin)) {
                 std::cout << "Sala inicial inválida. Digite novamente: \n";
                 begin = Graph::readIndex();
             }
-            std::cout << "Digite a sala final: ";
+            std::cout << "Digite a sala final (exemplo: s1): ";
             end = Graph::readIndex();
             while (!g->validIndex(end)) {
                 std::cout << "Sala final inválida. Digite novamente: \n";
@@ -88,6 +88,7 @@ void MainMenu::runGraphAlgirithm() {
             if (g->graph.empty()) {
                 pause("Grafo não inicializado\n");return;
             }
+            std::cout << "\nBusca em Profundidade\n\n";
             std::cout << "Digite a sala inicial: ";
             begin = Graph::readIndex();
             while (!g->validIndex(begin)) {
@@ -108,14 +109,8 @@ void MainMenu::runGraphAlgirithm() {
             
             pause();
             break;
-        
-        case '4':
-            cleanScreen();
-            g->show();
-            pause();
-            break;
 
-        case '5':
+        case '4':
             cout << "Fechando Menu\n";
             return;
         
@@ -165,6 +160,8 @@ void MainMenu::menu() {
         switch (entrada){
         case '1':
             g->read(readFilePath());
+            std::cout << "\nLeitura concluida com sucesso!\n";
+            pause();
             break;
         
         case '2':

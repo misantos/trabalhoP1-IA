@@ -8,6 +8,7 @@
 #include <list>
 #include <vector>
 #include <fstream>
+#include <time.h>
 #include "node-graph.hpp"
 
 
@@ -57,8 +58,6 @@ class Graph {
     color *colors;  /// vetor de cores, alocado somente quando tem busca em
     /// profundidade ou largura
 
-    int *ancestor;  /// vetor de predecessores
-
     int *dist;  /// vetor que informa a distância do vértice até a origem
 
     std::list<int> order;  /// vetor que informa a ordem em que os vértices
@@ -82,32 +81,12 @@ class Graph {
     void printOrder();
 
     /**
-     * @brief Imprime o vetor de predecessores
-     * 
-     * @pre vetor de predecessores alocada
-     * @post vetor de predecessores impressa na saída padrão
-     */
-    void printAncestor();
-
-    /**
      * @brief Imprime o vetor de distâncias
      * 
      * @pre vetor de distâncias alocada
      * @post vetor de distâncias impressa na saída padrão
      */
     void printDist();
-
-    /**
-     * @brief Utilizado para mostrar na tela o caminho de um
-     * vertice origem até um vertice fim utilizando a lista de
-     * predecessores
-     * 
-     * @param begin vértice que inicia o caminho
-     * @param end vértice que acaba o caminho
-     * @pre vetor de predecessores alocado
-     * @post Caminho impresso na tela
-     */
-    void printPath(int begin, int end);
 
     /**
      * @brief Informa a distância entre o vértice início e fim
@@ -120,14 +99,6 @@ class Graph {
      * @post Nenhuma
      */
     int getDistPath(int begin, int end);
-
-    /**
-     * @brief Inicializa o vertice de origem
-     *
-     * @pre predecessores e dist inicializados
-     * @post vértice de origem e suas estruturas auxiliares
-     * inicializadas
-     */
 
     public:
     /**
@@ -168,21 +139,14 @@ class Graph {
      */
     void show();
 
-    /**
-     * @brief Conta a quantidade de arestas em um grafo
-     * @return int A quantidade de Arestas presentes no Grafo
-     * @pre Grafo inicializado
-     * @post Nenhuma
-     */
-    int countEdge();
 
     void cleanTemp();
 
     //----------------- Algoritmos de um grafo -----------------//
 
     /**
-     * @brief Visita os vértices a partir de um ponto inicial,
-     * seguindo o algoritmo de busca em profundidade
+     * @brief Visita os vértices a partir de um ponto inicial e final,
+     * seguindo o algoritmo de busca em largura
      * 
      * @param begin deve estar dentro dos limites do vértice
      * @pre Grafo inicializado com ler
@@ -195,14 +159,14 @@ class Graph {
      * todos os vértices adjacentes
      *
      * @param index Vértice a ser explorado, cor branca
-     * @pre Somente chamado pela buscaEmProfuntidade
+     * @pre Somente chamado pela buscaEmProfundidade
      * @post Vértice index totalmente explorado, cor preto
      */
     void DFSVisit(int index, int end);
 
     /**
-     * @brief Visita os vértices a partir de um ponto inicial,
-     * seguindo o algoritmo de busca em largura
+     * @brief Visita os vértices a partir de um ponto inicial e final,
+     * seguindo o algoritmo de busca em profundidade
      * 
      * @param begin deve estar dentro dos limites do vértice
      * @pre Grafo inicializado com ler

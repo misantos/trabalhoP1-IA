@@ -34,43 +34,6 @@ public:
 	 */
 	NodeGraph(int v, int weight);
 
-	/**
-	 * @brief Sobrecarga do operador < necessária para ordenação
-	 * 
-	 * faz a comparação a partir do id do vértice
-	 * @param other 
-	 * @return true se this->id é maior
-	 * @return false se other.id é maior
-	 * @pre Nenhuma
-	 * @post Nenhuma
-	 */
-	bool operator < (const NodeGraph& other);
-
-	/**
-	 * @brief Sobrecarga do operador < necessária para std::find
-	 * 
-	 * faz a comparação a partir do id do vértice
-	 * @param other o id de um no
-	 * @return true se other é igual ao id do vertice
-	 * @return false se other é diferente ao id do vertice
-	 * @pre Nenhuma
-	 * @post Nenhuma
-	 */
-	bool operator == (int other);
-
-	/**
-	 * @brief Sobrecarga do operador < necessária para std::find
-	 * 
-	 * faz a comparação a partir do id do vértice
-	 * @param other o outro no
-	 * @return true se other é igual ao id do vertice
-	 * @return false se other é diferente ao id do vertice
-	 * @pre Nenhuma
-	 * @post Nenhuma
-	 */
-	bool operator == (const NodeGraph &other);
-
-	bool operator >= (const NodeGraph &other);
 
 	/**
 	 * @brief Sobrecarga do operador < necessária para impressão em stream

@@ -4,10 +4,13 @@
 
 int main(int argc, char *argv[]){
     Graph g;
-    //SingletonResumeFile &file = SingletonResumeFile::getInstance();
-    //file << "Ola mundo" << std::endl;
+    SingletonResumeFile &file = SingletonResumeFile::getInstance();
+    file    <<"|-------------------------------------------------------|\n"
+            << "|                Relatorio de desempenho                |\n"
+            << "|                dos algoritmos de busca                |\n"
+            << "|-------------------------------------------------------|\n"
+            << "|-------------------------------------------------------|\n\n\n";
     if (argc == 2) {
-        std::cout << "entrando na funcao\n";
         g.read(argv[1]);
     }
 

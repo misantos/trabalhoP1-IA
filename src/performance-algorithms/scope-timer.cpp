@@ -27,4 +27,6 @@ ScopeTimer::~ScopeTimer() {
         std::cout << elapsed_time.count() << " nano";
     }
     std::cout << ("segundos\n");
+    SingletonResumeFile &file = SingletonResumeFile::getInstance();
+    file << scope_name << " executou por: " << elapsed_time.count() << " nanosegundos\n";
 }
