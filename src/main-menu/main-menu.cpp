@@ -79,6 +79,7 @@ void MainMenu::runGraphAlgirithm() {
                 std::cout << "Sala final inválida. Digite novamente: \n";
                 end = Graph::readIndex();
             }
+            
             g->BFS(begin, end);
             pause();
             break;
@@ -89,13 +90,13 @@ void MainMenu::runGraphAlgirithm() {
                 pause("Grafo não inicializado\n");return;
             }
             std::cout << "\nBusca em Profundidade\n\n";
-            std::cout << "Digite a sala inicial: ";
+            std::cout << "Digite a sala inicial (exemplo: s1): ";
             begin = Graph::readIndex();
             while (!g->validIndex(begin)) {
                 std::cout << "Sala inicial inválida. Digite novamente: \n";
                 begin = Graph::readIndex();
             }
-            std::cout << "Digite a sala final: ";
+            std::cout << "Digite a sala final (exemplo: s1): ";
             end = Graph::readIndex();
             while (!g->validIndex(end)) {
                 std::cout << "Sala final inválida. Digite novamente: \n";
@@ -131,10 +132,9 @@ void MainMenu::show() const {
             << "|           Caminho de personagens em Jogos:            |\n"
             << "|                                                       |\n"
             << "|               1.  Leitura do arquivo                  |\n"
-            << "|               2.  Leitura do arquivo com heuristicas  |\n"
-            << "|               3.  Algoritmos de Busca                 |\n"
-            << "|               4.  Mostrar Grafo                       |\n"
-            << "|               5.  Sair                                |\n"
+            << "|               2.  Algoritmos de Busca                 |\n"
+            << "|               3.  Mostrar Grafo                       |\n"
+            << "|               4.  Sair                                |\n"
             << "|-------------------------------------------------------|\n\n\n";
 }
 
@@ -163,23 +163,19 @@ void MainMenu::menu() {
             std::cout << "\nLeitura concluida com sucesso!\n";
             pause();
             break;
-        
-        case '2':
-            //g->read...
-            break;
 
-        case '3':
+        case '2':
             runGraphAlgirithm();
             pause();
             break;
         
-        case '4':
+        case '3':
             //cleanScreen();
             g->show();
             pause();
             break;
 
-        case '5':
+        case '4':
             cout << "Fechando Menu\n";
             return;
         

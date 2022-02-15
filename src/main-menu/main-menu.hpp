@@ -11,6 +11,7 @@
 
 #include "../graph/graph.hpp"
 #include "../graph/node-graph.hpp"
+#include "../resume-file/singleton-resume-file.hpp"
 
 #define MENU_FUNCTIONS 5
 

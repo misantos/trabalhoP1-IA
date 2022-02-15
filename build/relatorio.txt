@@ -5,3 +5,17 @@
 |-------------------------------------------------------|
 
 
+
+
+Busca em Largura
+
+BFS executou por: 48272 nanosegundos
+Caminho percorrido pelo algoritmo: S1 S2 S3 S4 S5 S6 
+Numero de salas visitadas: 6
+
+
+Busca em Profundidade
+
+DFS executou por: 45952 nanosegundos
+Caminho percorrido pelo algoritmo: S1 S2 S4 S5 S3 S6 
+Numero de salas visitadas: 6

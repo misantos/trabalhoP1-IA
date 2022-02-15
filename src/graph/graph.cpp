@@ -15,7 +15,7 @@ void Graph::construct(std::istream& file) {
     std::string line;
     NodeGraph temp;
     int index;
-    std::cout << "func\n";
+    
     while (getline(file, line)){
 
         temp.v = atoi(&line[line.find_last_of('S') + 1]);
@@ -60,10 +60,11 @@ void Graph::printOrder() {
     auto it = order.cbegin();
     auto end = order.cend();
     end--;
+    std::cout << "Caminho percorrido: ";
     for(; it != end; it++){
-        std::cout << static_cast<char>('S') << *it << " - ";
+        std::cout << 'S' << *it << " - ";
     }
-    std::cout << static_cast<char>('S') << *it << '\n';
+    std::cout << 'S' << *it << '\n';
 }
 
 
@@ -93,7 +94,7 @@ bool Graph::validIndex(int index){
 
 void Graph::show() {
     for (int i = 0; i < (int)graph.size(); i++) {
-        std::cout << "Vértices adjacentes a " << static_cast<char>('S') <<  i << ": ";
+        std::cout << "Vértices adjacentes a " << 'S' <<  i << ": ";
         for(const auto &it : graph[i]){
             std::cout << it << ' ';
         }
@@ -118,9 +119,10 @@ void Graph::cleanTemp(){
 void Graph::DFSVisit(int index, int end) {
     
     order.push_back(index);
-    std::cout << "inserindo " << index << "\n";
+    std::cout << "Na sala: " << 'S' <<  index << '\n';
     if(index == end) {
         find_end = true;
+        std::cout << "\nSala final encontrado!!!!\n\n";
         return;
     }
     colors[index] = CINZA;
@@ -133,8 +135,8 @@ void Graph::DFSVisit(int index, int end) {
 }
 
 void Graph::DFS(int begin, int end) {
-    // set timer, numero de salas visitadas (order.size), quantas vezes a funcao recursiva foi chamada
-    
+    SingletonResumeFile &file = SingletonResumeFile::getInstance();
+    file << "\n\nBusca em Profundidade\n\n";
     {
     SET_TIMER;
     
@@ -152,24 +154,28 @@ void Graph::DFS(int begin, int end) {
             DFSVisit(i, end);
         }
     }
+    if (order.back() != end){
+        std::cout << "\nSala nao encontrada.\n\n"; 
+    }
     }
     
     printOrder();
     std::cout << "Numero de salas visitadas: " << order.size() << '\n';
   
-    SingletonResumeFile &file = SingletonResumeFile::getInstance();
-    file << "\n\nBusca em Profundidade\n\n";
+    
     file << "Caminho percorrido pelo algoritmo: ";
     for (auto i : order){
         file << 'S' << i << ' '; 
     }
     file << '\n';
     file << "Numero de salas visitadas: ";
-    file << order.size();
+    file << order.size() << '\n';
     cleanTemp();
 }
 
 void Graph::BFS(int begin, int end) {
+    SingletonResumeFile &file = SingletonResumeFile::getInstance();
+    file << "\n\nBusca em Largura\n\n";
     {
     SET_TIMER;
     int i;
@@ -182,13 +188,13 @@ void Graph::BFS(int begin, int end) {
     
     q.push_back(begin);
     colors[begin] = CINZA;
-    
+    std::cout << '\n';
     int first;
     while (!q.empty()){
         first = q.front();
-        std::cout << "\n\n" << static_cast<char>('S') <<  i << ": ";
+        std::cout << "Na sala: " << 'S' <<  first << '\n';
         if (first == end){
-            std::cout << "\nSala final encontrado!!!!\n";
+            std::cout << "\nSala final encontrado!!!!\n\n";
             order.push_back(end);
             break;
         }
@@ -203,19 +209,21 @@ void Graph::BFS(int begin, int end) {
         q.pop_front();
         colors[first] = PRETO;
     }
+    if (order.back() != end){
+        std::cout << "\nSala nao encontrada.\n\n"; 
+    }
+    
     }
     printOrder();
     std::cout << "Numero de salas visitadas: " << order.size() << '\n';
 
-    SingletonResumeFile &file = SingletonResumeFile::getInstance();
-    file << "\n\nBusca em Largura\n\n";
     file << "Caminho percorrido pelo algoritmo: ";
     for (auto i : order){
         file << 'S' << i << ' '; 
     }
     file << '\n';
     file << "Numero de salas visitadas: ";
-    file << order.size();
+    file << order.size() << '\n';
     cleanTemp();
 }
 
