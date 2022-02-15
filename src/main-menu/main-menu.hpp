@@ -3,7 +3,12 @@
 #include <cstdio>
 #include <climits>
 
-#define CLEAR "clear"
+#ifdef _WIN32
+    #define CLEAR "cls"
+#else
+    #define CLEAR "clear"
+#endif
+
 #include "../graph/graph.hpp"
 #include "../graph/node-graph.hpp"
 
