@@ -10,13 +10,14 @@
 
 
 void Graph::construct(std::istream& file) {
+    graph.resize(1);
+    graph[0] = std::list<NodeGraph>();
     std::string line;
     NodeGraph temp;
     int index;
-    
-    getline(file, line);
-    while (line != ""){
-        std::cout << "linha = [" << line << "]\n";
+    std::cout << "func\n";
+    while (getline(file, line)){
+
         temp.v = atoi(&line[line.find_last_of('S') + 1]);
         index = atoi(&line[line.find_first_of('S')] + 1);
         temp.weight = atoi(&line[line.find_last_of(',')] + 1);
@@ -27,7 +28,6 @@ void Graph::construct(std::istream& file) {
             graph.resize(greater + 1);
             graph[index].push_back(temp);
         }
-        getline(file, line);
     }
     /*char enter = '\n';
     while (enter == '\n') {
@@ -145,6 +145,7 @@ void Graph::DFS(int begin, int end) {
     for(i = 0; i < (int)graph.size(); i++) {
         colors[i] = BRANCO;
     }
+
 
     for(i = begin; i < (int)graph.size(); i++) {
         if (colors[i] == BRANCO && (!find_end)) {

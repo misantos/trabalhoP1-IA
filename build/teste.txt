@@ -7,9 +7,3 @@ pode_ir(S3, S7, 50).
 pode_ir(S6, S8, 10).
 pode_ir(S6, S9, 20).
 pode_ir(S7, S10, 20).
-
-
-
-
-
-ola

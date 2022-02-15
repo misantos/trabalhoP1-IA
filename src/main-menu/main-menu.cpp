@@ -30,11 +30,11 @@ void MainMenu::pause(const char * optional_message) const {
 void MainMenu::cleanBuffer() const {
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
-
+/*
 void MainMenu::cleanScreen() const {
     int temp __attribute__((unused)) = system(CLEAR);
 }
-
+*/
  void MainMenu::showAlgorithms() const{
      using namespace std;
      cout   <<"|-------------------------------------------------------|\n"
@@ -55,7 +55,7 @@ void MainMenu::runGraphAlgirithm() {
     char entrada=0;
 
     while (true){
-        cleanScreen();
+        //cleanScreen();
         showAlgorithms();
         entrada = getchar();
         cleanBuffer();
@@ -152,7 +152,7 @@ void MainMenu::menu() {
 
     int entrada = 0;
     while (true){
-        cleanScreen();
+        //cleanScreen();
         show();
         entrada = getchar();
         cleanBuffer();
@@ -174,7 +174,7 @@ void MainMenu::menu() {
             break;
         
         case '4':
-            cleanScreen();
+            //cleanScreen();
             g->show();
             pause();
             break;
