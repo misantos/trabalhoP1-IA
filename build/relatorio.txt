@@ -9,13 +9,20 @@
 
 Busca em Largura
 
-BFS executou por: 48272 nanosegundos
-Caminho percorrido pelo algoritmo: S1 S2 S3 S4 S5 S6 
-Numero de salas visitadas: 6
+BFS executou por: 183125 nanosegundos
+Caminho percorrido pelo algoritmo: S0 S1 S2 S3 S4 S5 S14 S15 S6 S7 S8 S9 S10 S16 S17 S18 
+Numero de salas visitadas: 16
 
 
 Busca em Profundidade
 
-DFS executou por: 45952 nanosegundos
-Caminho percorrido pelo algoritmo: S1 S2 S4 S5 S3 S6 
-Numero de salas visitadas: 6
+DFS executou por: 142686 nanosegundos
+Caminho percorrido pelo algoritmo: S0 S1 S3 S6 S7 S4 S8 S5 S9 S11 S10 S12 S13 S2 S14 S16 S20 S15 S17 S21 S22 S18 
+Numero de salas visitadas: 22
+
+
+Busca em Largura
+
+BellmanFord executou por: 9220 nanosegundos
+Caminho percorrido pelo algoritmo: S0 S2 S15 S18 
+Numero de salas visitadas: 4

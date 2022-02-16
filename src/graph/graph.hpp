@@ -101,7 +101,7 @@ class Graph {
      * @pre vetor de predecessores alocado
      * @post Caminho impresso na tela
      */
-    void printCaminho(int inicio, int fim);
+    bool printCaminho(int begin, int fim, int &salas);
 
     /**
      * @brief Informa a distância entre o vértice início e fim
@@ -238,7 +238,7 @@ class Graph {
      *      Grafo carregado
      * @post Nenhuma
      */
-    bool BellmanFord(int vertice_inicio);
+    bool BellmanFord(int begin, int end);
 
     /**
      * @brief Destrutor da classe Grafo

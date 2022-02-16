@@ -30,23 +30,23 @@ void MainMenu::pause(const char * optional_message) const {
 void MainMenu::cleanBuffer() const {
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
-/*
+
 void MainMenu::cleanScreen() const {
     int temp __attribute__((unused)) = system(CLEAR);
 }
-*/
- void MainMenu::showAlgorithms() const{
-     using namespace std;
-     cout   <<"|-------------------------------------------------------|\n"
+
+void MainMenu::showAlgorithms() const{
+    using namespace std;
+    cout  	<< "|-------------------------------------------------------|\n"
             << "|                  Algoritmos de Busca                  |\n"
             << "|-------------------------------------------------------|\n"
             << "|                                                       |\n"
             << "|               1.  Busca em Largura                    |\n"
             << "|               2.  Busca em Profundidade               |\n"
-            << "|               3.  A*                                  |\n"
+            << "|               3.  Bellman-Ford                        |\n"
             << "|               4.  Voltar                              |\n"
             << "|-------------------------------------------------------|\n\n\n";
- }
+}
 
 void MainMenu::runGraphAlgirithm() {
     using namespace std;
@@ -55,7 +55,7 @@ void MainMenu::runGraphAlgirithm() {
     char entrada=0;
 
     while (true){
-        //cleanScreen();
+        cleanScreen();
         showAlgorithms();
         entrada = getchar();
         cleanBuffer();
@@ -107,7 +107,23 @@ void MainMenu::runGraphAlgirithm() {
             break;
 
         case '3':
-            
+            if (g->graph.empty()) {
+                pause("Grafo não inicializado\n");return;
+            }
+            std::cout << "\nBusca de BellmanFord\n\n";
+            std::cout << "Digite a sala inicial (exemplo: s1): ";
+            begin = Graph::readIndex();
+            while (!g->validIndex(begin)) {
+                std::cout << "Sala inicial inválida. Digite novamente: \n";
+                begin = Graph::readIndex();
+            }
+			std::cout << "Digite a sala final (exemplo: s1): ";
+            end = Graph::readIndex();
+            while (!g->validIndex(end)) {
+                std::cout << "Sala final inválida. Digite novamente: \n";
+                end = Graph::readIndex();
+            }
+            g->BellmanFord(begin, end);
             pause();
             break;
 
@@ -152,7 +168,7 @@ void MainMenu::menu() {
 
     int entrada = 0;
     while (true){
-        //cleanScreen();
+        cleanScreen();
         show();
         entrada = getchar();
         cleanBuffer();
@@ -170,7 +186,7 @@ void MainMenu::menu() {
             break;
         
         case '3':
-            //cleanScreen();
+            cleanScreen();
             g->show();
             pause();
             break;

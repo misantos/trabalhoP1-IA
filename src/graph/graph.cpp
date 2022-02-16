@@ -10,8 +10,6 @@
 
 
 void Graph::construct(std::istream& file) {
-    graph.resize(1);
-    graph[0] = std::list<NodeGraph>();
     std::string line;
     NodeGraph temp;
     int index;
@@ -238,17 +236,39 @@ void Graph::BFS(int begin, int end) {
  * @pre vetor de predecessores alocado
  * @post Caminho impresso na tela
  */
-void Graph::printCaminho(int begin, int fim) {
+bool Graph::printCaminho(int begin, int fim, int &salas) {
     if (begin == fim) {
-        std::cout << fim;
-        return;
+        //std::cout << fim;
+		order.push_back(fim);
+        return true;
     }
     if (begin == NIL || predecessores[begin] == NIL) {
         std::cout << "Inacessível";
-        return;
+        return false;
     }
-    printCaminho(predecessores[begin], fim);
-    std::cout << " - " << begin;
+	salas++;
+    const auto ret = printCaminho(predecessores[begin], fim, salas);
+	order.push_back(begin);
+	return ret;
+}
+
+/**
+ * @brief Diminui o limite superior do peso do menor caminho
+ * 
+ * Utilizado no algoritmo de Bellman-Ford
+ * @param inicio vértice que inicia o caminho
+ * @param fim vértice que acaba o caminho
+ * @pre Um algoritmo de menor caminho estar sendo executado
+ * com suas estruturas alocadas
+ * @post menor peso entre início e fim
+ */
+bool Graph::relax(const int inicio, const int fim, const int weight) {
+	if (dist[fim] > (dist[inicio] + weight)) {
+        dist[fim] = dist[inicio] + weight;
+        predecessores[fim] = inicio;
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -264,24 +284,32 @@ void Graph::printCaminho(int begin, int fim) {
  *      Grafo deve ser orientado,
  * @post Nenhuma
  */
-bool Graph::BellmanFord(int vertice_begin) {
-    int i, qnt;
+bool Graph::BellmanFord(int begin, int end) {
+    SingletonResumeFile &file = SingletonResumeFile::getInstance();
+    file << "\n\nBusca em Largura\n\n";
     bool ret;
-    auto nodes = (int) graph.size();
-    predecessores = new int[nodes];
-    dist = new int[nodes];
-    
-    inicializaOrigem(vertice_begin);
+	{
+	SET_TIMER;
+	int i, qnt;
+	const int size = (int)graph.size();
+    predecessores = new int[size];
+    dist		  = new int[size];
 
-    for (qnt = 0; qnt < (nodes - 2); qnt++) {
+	for(int i = 0; i < size; i++) {
+        predecessores[i] = NIL;
+        dist[i] = MAX_DIST;
+    }
+    dist[begin] = 0;
+
+    for (qnt = 0; qnt < (size - 2); qnt++) {
         ret = false;
         // percorre cada uma das arestas
-        for(i = 0; i < nodes; i++) {
-            for(auto it : graph[i]) {
-                if (relax(i, it->v, it->weight)) {
-                    ret = true;
-                }
-            }
+        for(i = 0; i < size; i++) {
+			for (const auto &it : graph[i]) {
+				if (relax(i, it.v, it.weight)) {
+					ret = true;
+				}
+			}
         }
         // se não teve nenhum relax nessa interação por todas as arestas
         // pare de executar o algoritmo
@@ -292,24 +320,30 @@ bool Graph::BellmanFord(int vertice_begin) {
 
     // percorre cada uma das arestas, buscando ciclo negativo
     ret = true;
-    for(i = 0; i < nodes; i++) {
-        for (auto it : graph[i]) {
-            if (dist[it->v] > dist[i] + it->weight) {
+    for(i = 0; i < size; i++) {
+		for (auto it : graph[i]) {
+            if (dist[it.v] > dist[i] + it.weight) {
                 ret = false;
                 break;
             }
-        }
+		}
     }
+	}
 
     if (ret) {
-        for(i = 0; i < nodes; i++) {
-            std::cout   << "destino: "  << i        << ' '
-                        << "dist: "     << dist[i]  << ' '
-                        << "caminho: ";
+        int salas;
+        printCaminho(end, begin, salas);
+        printOrder();
+        std::cout << "Numero de salas visitadas: " << order.size() << '\n';
 
-            printCaminho(i, vertice_begin);
-            std::cout << std::endl;
+        file << "Caminho percorrido pelo algoritmo: ";
+        for (auto i : order) {
+            file << 'S' << i << ' ';
         }
+        file << '\n';
+        file << "Numero de salas visitadas: ";
+        file << order.size() << '\n';
+
     }else {
         std::cout << "O Grafo Possui ciclo negativo" << std::endl;
     }
