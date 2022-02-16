@@ -227,6 +227,100 @@ void Graph::BFS(int begin, int end) {
     cleanTemp();
 }
 
+/**
+ * @brief Utilizado para mostrar na tela o caminho de um
+ * vertice origem até um vertice fim utilizando a lista de
+ * predecessores
+ *
+ * Utilizado no algoritimo de BellMan-Ford
+ * @param begin vertice que inicia o caminho
+ * @param fim vertice que acaba o caminho
+ * @pre vetor de predecessores alocado
+ * @post Caminho impresso na tela
+ */
+void Graph::printCaminho(int begin, int fim) {
+    if (begin == fim) {
+        std::cout << fim;
+        return;
+    }
+    if (begin == NIL || predecessores[begin] == NIL) {
+        std::cout << "Inacessível";
+        return;
+    }
+    printCaminho(predecessores[begin], fim);
+    std::cout << " - " << begin;
+}
+
+/**
+ * @brief Executa o algorítimo de BellMan-Ford
+ *
+ * Algorítmo que encontra o menor caminho de todos os vértices em
+ * relação ao vertice passado como argumento
+ * @param vertice_begin o vértice para qual todos os outros devem
+ * encontrar o menor caminho
+ * @return true Caso o Grafo não possua um cíclo negativo
+ * @return false Caso o Grafo possua um cíclo negativo
+ * @pre vértice de início está contido no Grafo,
+ *      Grafo deve ser orientado,
+ * @post Nenhuma
+ */
+bool Graph::BellmanFord(int vertice_begin) {
+    int i, qnt;
+    bool ret;
+    auto nodes = (int) graph.size();
+    predecessores = new int[nodes];
+    dist = new int[nodes];
+    
+    inicializaOrigem(vertice_begin);
+
+    for (qnt = 0; qnt < (nodes - 2); qnt++) {
+        ret = false;
+        // percorre cada uma das arestas
+        for(i = 0; i < nodes; i++) {
+            for(auto it : graph[i]) {
+                if (relax(i, it->v, it->weight)) {
+                    ret = true;
+                }
+            }
+        }
+        // se não teve nenhum relax nessa interação por todas as arestas
+        // pare de executar o algoritmo
+        if (!ret) {
+            break;
+        }
+    }
+
+    // percorre cada uma das arestas, buscando ciclo negativo
+    ret = true;
+    for(i = 0; i < nodes; i++) {
+        for (auto it : graph[i]) {
+            if (dist[it->v] > dist[i] + it->weight) {
+                ret = false;
+                break;
+            }
+        }
+    }
+
+    if (ret) {
+        for(i = 0; i < nodes; i++) {
+            std::cout   << "destino: "  << i        << ' '
+                        << "dist: "     << dist[i]  << ' '
+                        << "caminho: ";
+
+            printCaminho(i, vertice_begin);
+            std::cout << std::endl;
+        }
+    }else {
+        std::cout << "O Grafo Possui ciclo negativo" << std::endl;
+    }
+
+    delete[] dist;
+    delete[] predecessores;
+    return ret;
+}
+
+
+
 Graph::~Graph() {
     
 }
