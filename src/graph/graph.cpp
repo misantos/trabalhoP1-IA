@@ -16,8 +16,8 @@ void Graph::construct(std::istream& file) {
     
     while (getline(file, line)){
 
-        temp.v = atoi(&line[line.find_last_of('S') + 1]);
-        index = atoi(&line[line.find_first_of('S')] + 1);
+        temp.v = atoi(&line[line.find_first_of(',') + 1]);
+        index = atoi(&line[line.find_first_of('(')] + 1);
         temp.weight = atoi(&line[line.find_last_of(',')] + 1);
         auto greater = std::max(index, temp.v);
         if ((int)graph.size() > greater){
@@ -286,7 +286,7 @@ bool Graph::relax(const int inicio, const int fim, const int weight) {
  */
 bool Graph::BellmanFord(int begin, int end) {
     SingletonResumeFile &file = SingletonResumeFile::getInstance();
-    file << "\n\nBusca em Largura\n\n";
+    file << "\n\nBellmanford\n\n";
     bool ret;
 	{
 	SET_TIMER;
@@ -348,8 +348,7 @@ bool Graph::BellmanFord(int begin, int end) {
         std::cout << "O Grafo Possui ciclo negativo" << std::endl;
     }
 
-    delete[] dist;
-    delete[] predecessores;
+    cleanTemp();
     return ret;
 }
 
